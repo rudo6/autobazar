@@ -14,4 +14,8 @@ public enum InzeratFactory {
     public PouzivatelDao getPouzivatel(){
         return new MySqlPouzivatelDao();
     }
+    
+    public InzeratMotocykelDao getInzeratMotocykelDao(){
+        return new MySqlInzeratMotocykelDao();
+    }
 }

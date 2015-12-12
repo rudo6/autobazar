@@ -14,10 +14,42 @@ public class InzeratOsobne {
     private String rocnik;
 
     private Long objem;
+    
+    private int km;
+    
+    public String palivo;
+    
+    public String prevodovka;
+    
+    public int vykon;
 
     private Date datumPridania;
     
     private Long cena;
+
+    public String getPalivo() {
+        return palivo;
+    }
+
+    public void setPalivo(String palivo) {
+        this.palivo = palivo;
+    }
+
+    public String getPrevodovka() {
+        return prevodovka;
+    }
+
+    public void setPrevodovka(String prevodovka) {
+        this.prevodovka = prevodovka;
+    }
+
+    public int getVykon() {
+        return vykon;
+    }
+
+    public void setVykon(int vykon) {
+        this.vykon = vykon;
+    }
 
     public Long getCena() {
         return cena;

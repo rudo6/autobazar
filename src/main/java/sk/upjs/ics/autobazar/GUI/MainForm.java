@@ -1,6 +1,9 @@
  
-package sk.upjs.ics.autobazar;
+package sk.upjs.ics.autobazar.GUI;
 
+import sk.upjs.ics.autobazar.GUI.PrihlasenieForm;
+import sk.upjs.ics.autobazar.GUI.RegistraciaForm;
+import sk.upjs.ics.autobazar.GUI.VyhladavacInzeratovForm;
 import static java.lang.System.load;
 import java.text.SimpleDateFormat;
 import java.util.List;
@@ -8,6 +11,15 @@ import javax.swing.DefaultComboBoxModel;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
+import javax.swing.JOptionPane;
+import sk.upjs.ics.autobazar.InzeratFactory;
+import sk.upjs.ics.autobazar.InzeratMotocykel;
+import sk.upjs.ics.autobazar.InzeratMotocykelDao;
+import sk.upjs.ics.autobazar.InzeratNakladne;
+import sk.upjs.ics.autobazar.InzeratNakladneDao;
+import sk.upjs.ics.autobazar.InzeratOsobne;
+import sk.upjs.ics.autobazar.InzeratOsobneDao;
+import sk.upjs.ics.autobazar.PouzivatelDao;
 
 public class MainForm extends javax.swing.JFrame {
 
@@ -15,17 +27,18 @@ public class MainForm extends javax.swing.JFrame {
     private InzeratOsobneDao inzeratDao = InzeratFactory.INSTANCE.getInzeratOsobneDao();
     private InzeratNakladneDao inzeratDao2 = InzeratFactory.INSTANCE.getInzeratNakladneDao();
     private PouzivatelDao pouzivatelDao = InzeratFactory.INSTANCE.getPouzivatel();
+    private InzeratMotocykelDao inzeratDao3 = InzeratFactory.INSTANCE.getInzeratMotocykelDao();
     //private MySqlPouzivatelDao pouzivatelDao = new MySqlPouzivatelDao();
     
     private boolean osobne = true;
     private boolean nakladne = false;
+    private boolean motocykel = false;
     
     /**
      * Creates new form MainForm
      */
     public MainForm() {
         initComponents();
-        //currentDateAndTime();
         refresh();
         
     }
@@ -33,7 +46,7 @@ public class MainForm extends javax.swing.JFrame {
     
     public void currentDateAndTime(){
         String[] dayOfWeek = {"nedela", "pondelok", "utorok", "streda", "stvrtok", "piatok", "sobota"};
-        String[] months = {"januara", "februara", "marca", "aprila", "juna", "jula", "augusta", "septembra", "oktobra", "novembra", "decembra"};
+        String[] months = {"januara", "februara", "marca", "aprila", "maja", "juna", "jula", "augusta", "septembra", "oktobra", "novembra", "decembra"};
         Calendar cal = new GregorianCalendar();
        
         int year = cal.get(Calendar.YEAR);
@@ -46,7 +59,7 @@ public class MainForm extends javax.swing.JFrame {
         SimpleDateFormat sdf = new SimpleDateFormat("HH:mm:ss");
         
         //+' '+hour+":"+minute+":"+second
-        dateAndTimeLabel.setText("Dnes je"+' '+dayOfWeek[nameOfDay]+", "+day+"."+months[nameOfMonth -1]+' '+year +' '+ sdf.format(calen.getTime()));
+        dateAndTimeLabel.setText("Dnes je"+' '+dayOfWeek[nameOfDay-1]+", "+day+"."+months[nameOfMonth -1]+' '+year +' '+ sdf.format(calen.getTime()));
     }
     /**
      * This method is called from within the constructor to initialize the form.
@@ -85,6 +98,7 @@ public class MainForm extends javax.swing.JFrame {
         podnadpisLabel = new javax.swing.JLabel();
         osobneButton = new javax.swing.JButton();
         nakladneButton = new javax.swing.JButton();
+        motocykelButton = new javax.swing.JButton();
         downPanel = new javax.swing.JPanel();
         copyrightLabel = new javax.swing.JLabel();
 
@@ -96,7 +110,7 @@ public class MainForm extends javax.swing.JFrame {
 
         vyhladavanieNadpis.setText("Vyhladavanie");
 
-        znackaBox.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Audi", "Skoda", "Volkswagen", "Volvo" }));
+        znackaBox.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "zadaj znacku ...", "Audi", "Skoda", "Volkswagen", "Volvo" }));
         znackaBox.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 znackaBoxActionPerformed(evt);
@@ -132,7 +146,7 @@ public class MainForm extends javax.swing.JFrame {
             }
         });
 
-        rocnikDoBox.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "2000", "2001", "2002", "2003", "2004", "2005", "2006", "2007", "2008", "2009", "2010", "2011", "2012", "2013", "2014", "2015" }));
+        rocnikDoBox.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "2015", "2014", "2013", "2012", "2011", "2010", "2009", "0008", "2007", "2006", "2005", "2004", "2003", "2002", "2001", "2000" }));
 
         rocnikOdLabel.setText("Rocnik od");
 
@@ -273,17 +287,35 @@ public class MainForm extends javax.swing.JFrame {
         podnadpisLabel.setForeground(new java.awt.Color(255, 255, 255));
         podnadpisLabel.setText("najlepsi autobazar na Slovensku");
 
+        osobneButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/sk/upjs/ics/autobazar/ikonky/Transport-Car-icon (1).png"))); // NOI18N
         osobneButton.setText("Osobne");
+        osobneButton.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        osobneButton.setMaximumSize(new java.awt.Dimension(137, 73));
+        osobneButton.setPreferredSize(new java.awt.Dimension(201, 137));
+        osobneButton.setVerticalTextPosition(javax.swing.SwingConstants.TOP);
         osobneButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 osobneButtonActionPerformed(evt);
             }
         });
 
+        nakladneButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/sk/upjs/ics/autobazar/ikonky/truck_32.png"))); // NOI18N
         nakladneButton.setText("Nakladne");
+        nakladneButton.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        nakladneButton.setVerticalTextPosition(javax.swing.SwingConstants.TOP);
         nakladneButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 nakladneButtonActionPerformed(evt);
+            }
+        });
+
+        motocykelButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/sk/upjs/ics/autobazar/ikonky/Transport-Motorcycle-icon.png"))); // NOI18N
+        motocykelButton.setText("Motocykel");
+        motocykelButton.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        motocykelButton.setVerticalTextPosition(javax.swing.SwingConstants.TOP);
+        motocykelButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                motocykelButtonActionPerformed(evt);
             }
         });
 
@@ -298,30 +330,32 @@ public class MainForm extends javax.swing.JFrame {
                         .addComponent(nadpisLabel))
                     .addGroup(autobazarPanelLayout.createSequentialGroup()
                         .addGap(169, 169, 169)
-                        .addComponent(podnadpisLabel)
-                        .addGap(73, 73, 73)
-                        .addComponent(osobneButton)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(nakladneButton)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 248, Short.MAX_VALUE)
+                        .addComponent(podnadpisLabel)))
+                .addGap(27, 27, 27)
+                .addComponent(osobneButton, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(nakladneButton, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(motocykelButton, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(pridatInzeratButton, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(72, 72, 72))
+                .addGap(27, 27, 27))
         );
         autobazarPanelLayout.setVerticalGroup(
             autobazarPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(autobazarPanelLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(nadpisLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(autobazarPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(podnadpisLabel)
-                    .addComponent(osobneButton)
-                    .addComponent(nakladneButton))
-                .addContainerGap())
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, autobazarPanelLayout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(pridatInzeratButton, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(21, 21, 21))
+                .addContainerGap()
+                .addGroup(autobazarPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(motocykelButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(nakladneButton, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(osobneButton, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                    .addGroup(autobazarPanelLayout.createSequentialGroup()
+                        .addGroup(autobazarPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addComponent(nadpisLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(pridatInzeratButton, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 10, Short.MAX_VALUE)
+                        .addComponent(podnadpisLabel)))
+                .addContainerGap())
         );
 
         copyrightLabel.setText("Copyright © 2015 Autobazar SK");
@@ -338,7 +372,7 @@ public class MainForm extends javax.swing.JFrame {
         downPanelLayout.setVerticalGroup(
             downPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, downPanelLayout.createSequentialGroup()
-                .addGap(0, 3, Short.MAX_VALUE)
+                .addGap(0, 7, Short.MAX_VALUE)
                 .addComponent(copyrightLabel))
         );
 
@@ -397,36 +431,98 @@ public class MainForm extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void znackaBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_znackaBoxActionPerformed
-        if(znackaBox.getSelectedIndex()==0){
-            String[] items = {"A4", "A6", "Q7"};            
-            modelBox.setModel(new DefaultComboBoxModel(items));
+        if (osobne == true && nakladne == false && motocykel == false) {
+            if (znackaBox.getSelectedIndex() == 1) {
+                String[] items = {"A4", "A6", "Q7"};
+                modelBox.setModel(new DefaultComboBoxModel(items));
+            }
+    
+            if (znackaBox.getSelectedIndex() == 2) {
+                String[] items = {"Fabia", "Octavia", "Felicia"};
+                modelBox.setModel(new DefaultComboBoxModel(items));
+            }
+            if (znackaBox.getSelectedIndex() == 3) {
+                String[] items = {"Polo", "Golf", "Passat"};
+                modelBox.setModel(new DefaultComboBoxModel(items));
+            }
+            if (znackaBox.getSelectedIndex() == 4) {
+                String[] items = {"S60", "XC70", "XC90"};
+                modelBox.setModel(new DefaultComboBoxModel(items));
+            }
         }
-        
-        if(znackaBox.getSelectedIndex()==1){
-            String[] items = {"Fabia", "Octavia", "Felicia"};            
-            modelBox.setModel(new DefaultComboBoxModel(items));
+        if(nakladne==true && osobne==false && motocykel==false){
+            if (znackaBox.getSelectedIndex() == 1) {
+                String[] items = {"LF", "CF", "XF"};
+                modelBox.setModel(new DefaultComboBoxModel(items));
+            }
+
+            if (znackaBox.getSelectedIndex() == 2) {
+                String[] items = {"Eurocargo 2", "Stralis 2", "Trakker 2"};
+                modelBox.setModel(new DefaultComboBoxModel(items));
+            }
+            if (znackaBox.getSelectedIndex() == 3) {
+                String[] items = {"TGM", "TGA", "TGL", "TGS"};
+                modelBox.setModel(new DefaultComboBoxModel(items));
+            }
+            if (znackaBox.getSelectedIndex() == 4) {
+                String[] items = {"FM", "FH", "FH16"};
+                modelBox.setModel(new DefaultComboBoxModel(items));
+            }
         }
-        if(znackaBox.getSelectedIndex()==2){
-            String[] items = {"Polo", "Golf", "Passat"};            
-            modelBox.setModel(new DefaultComboBoxModel(items));
-        }
-        if(znackaBox.getSelectedIndex()==3){
-            String[] items = {"S60", "XC70", "XC90"};            
-            modelBox.setModel(new DefaultComboBoxModel(items));
+        if(nakladne==false && osobne==false && motocykel==true){
+            if (znackaBox.getSelectedIndex() == 1) {
+                String[] items = {"S", "F", "R"};
+                modelBox.setModel(new DefaultComboBoxModel(items));
+            }
+
+            if (znackaBox.getSelectedIndex() == 2) {
+                String[] items = {"CBR", "VTR", "CBF"};
+                modelBox.setModel(new DefaultComboBoxModel(items));
+            }
+            if (znackaBox.getSelectedIndex() == 3) {
+                String[] items = {"SX", "EXC", "RC", "DUKE 3"};
+                modelBox.setModel(new DefaultComboBoxModel(items));
+            }
+            if (znackaBox.getSelectedIndex() == 4) {
+                String[] items = {"GSR", "GSX", "SV"};
+                modelBox.setModel(new DefaultComboBoxModel(items));
+            }
         }
     }//GEN-LAST:event_znackaBoxActionPerformed
 
     
     private void vyhladajButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_vyhladajButtonActionPerformed
-        List<InzeratOsobne> inzeraty = inzeratDao.vyhladaj(znackaBox.getSelectedItem().toString(), modelBox.getSelectedItem().toString(), 
-                rocnikOdBox.getSelectedItem().toString(), rocnikDoBox.getSelectedItem().toString());
-        VyhladavacInzeratovForm v = new VyhladavacInzeratovForm(this, true,inzeraty);
-        v.setVisible(true);
+        if(znackaBox.getSelectedItem().toString().equals("zadaj znacku ...")){
+            JOptionPane.showMessageDialog(this, "Nebola zvolena znacka!");
+            return;
+        }
+        if (osobne == true && nakladne == false && motocykel == false) {
+            List<InzeratOsobne> inzeraty = inzeratDao.vyhladaj(znackaBox.getSelectedItem().toString(), modelBox.getSelectedItem().toString(),
+                    rocnikOdBox.getSelectedItem().toString(), rocnikDoBox.getSelectedItem().toString());
+        //VyhladavacInzeratovForm v = new VyhladavacInzeratovForm(this, true,inzeraty);
+            //v.setVisible(true);
+            inzeratyList.setListData(inzeraty.toArray());
+        }
+        if(nakladne==true && osobne==false && motocykel==false){
+            List<InzeratNakladne> inzeraty = inzeratDao2.vyhladaj(znackaBox.getSelectedItem().toString(), modelBox.getSelectedItem().toString(),
+                    rocnikOdBox.getSelectedItem().toString(), rocnikDoBox.getSelectedItem().toString());
+        //VyhladavacInzeratovForm v = new VyhladavacInzeratovForm(this, true,inzeraty);
+            //v.setVisible(true);
+            inzeratyList.setListData(inzeraty.toArray());
+        }
+        if(nakladne==false && osobne==false && motocykel==true){
+            List<InzeratMotocykel> inzeraty = inzeratDao3.vyhladaj(znackaBox.getSelectedItem().toString(), modelBox.getSelectedItem().toString(),
+                    rocnikOdBox.getSelectedItem().toString(), rocnikDoBox.getSelectedItem().toString());
+        //VyhladavacInzeratovForm v = new VyhladavacInzeratovForm(this, true,inzeraty);
+            //v.setVisible(true);
+            inzeratyList.setListData(inzeraty.toArray());
+        }
+        
     }//GEN-LAST:event_vyhladajButtonActionPerformed
 
     private void inzeratyListMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_inzeratyListMouseClicked
        if(evt.getClickCount()==2){
-            if(osobne==true && nakladne==false)
+            if(osobne==true && nakladne==false && motocykel==false)
             {
                 InzeratOsobne inzerat = (InzeratOsobne) inzeratyList.getSelectedValue();
 
@@ -435,7 +531,7 @@ public class MainForm extends javax.swing.JFrame {
 
                 refresh();
             }
-            if(nakladne==true && osobne==false)
+            if(nakladne==true && osobne==false && motocykel==false)
             {
                 InzeratNakladne inzerat = (InzeratNakladne) inzeratyList.getSelectedValue();
 
@@ -443,6 +539,14 @@ public class MainForm extends javax.swing.JFrame {
                 inzeratform.setVisible(true);
 
                 refresh2();
+            }
+            if(nakladne==false && osobne==false && motocykel==true)
+            {
+                InzeratMotocykel inzerat = (InzeratMotocykel) inzeratyList.getSelectedValue();
+
+                InzeratMotocykelForm inzeratForm = new InzeratMotocykelForm(this, true, inzerat);
+                inzeratForm.setVisible(true);
+                refresh3();
             }
         }
     }//GEN-LAST:event_inzeratyListMouseClicked
@@ -473,18 +577,41 @@ public class MainForm extends javax.swing.JFrame {
         refresh2();
     }//GEN-LAST:event_nakladneButtonActionPerformed
 
-    private void refresh() {
+    private void motocykelButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_motocykelButtonActionPerformed
+        refresh3();
+    }//GEN-LAST:event_motocykelButtonActionPerformed
+
+    private void refresh() {        
+        currentDateAndTime();
         osobne=true;
         nakladne=false;
+        motocykel=false;
         List<InzeratOsobne> inzeraty = inzeratDao.dajVsetky();
         inzeratyList.setListData(inzeraty.toArray());
+        String[] item = {"zadaj znacku ...", "Audi", "Skoda", "Volkswagen", "Volvo"};
+        znackaBox.setModel(new DefaultComboBoxModel(item));
     }
     
-    private void refresh2() {
+    private void refresh2() {        
+        currentDateAndTime();
         osobne=false;
-        nakladne=true;
+        nakladne=true;        
+        motocykel=false;
         List<InzeratNakladne> inzeraty = inzeratDao2.dajVsetky();
+        inzeratyList.setListData(inzeraty.toArray());        
+        String[] item = {"zadaj znacku ...", "DAF", "Iveco", "MAN", "Mercedes"};
+        znackaBox.setModel(new DefaultComboBoxModel(item));
+    }
+    
+    private void refresh3() {        
+        currentDateAndTime();
+        osobne=false;
+        nakladne=false;
+        motocykel=true;
+        List<InzeratMotocykel> inzeraty = inzeratDao3.dajVsetky();
         inzeratyList.setListData(inzeraty.toArray());
+        String[] item = {"zadaj znacku ...", "BMW", "Honda", "Husqvarna", "Suzuki"};
+        znackaBox.setModel(new DefaultComboBoxModel(item));
     }
     
     public static void main(String args[]) {
@@ -533,6 +660,7 @@ public class MainForm extends javax.swing.JFrame {
     private javax.swing.JLabel languageLabel;
     private javax.swing.JComboBox modelBox;
     private javax.swing.JLabel modelLabel;
+    private javax.swing.JButton motocykelButton;
     private javax.swing.JLabel nadpisLabel;
     private javax.swing.JButton nakladneButton;
     private javax.swing.JButton osobneButton;

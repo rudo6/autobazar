@@ -1,7 +1,8 @@
-package sk.upjs.ics.autobazar;
+package sk.upjs.ics.autobazar.GUI;
 
 import java.awt.Frame;
 import java.util.List;
+import sk.upjs.ics.autobazar.InzeratOsobne;
 
 
 public class VyhladavacInzeratovForm extends javax.swing.JDialog {
@@ -35,9 +36,16 @@ public class VyhladavacInzeratovForm extends javax.swing.JDialog {
         jScrollPane1 = new javax.swing.JScrollPane();
         inzeratyList = new javax.swing.JList();
         spatButton = new javax.swing.JButton();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        inzeratTextArea = new javax.swing.JTextArea();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
+        inzeratyList.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                inzeratyListMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(inzeratyList);
 
         spatButton.setText("späť");
@@ -47,24 +55,32 @@ public class VyhladavacInzeratovForm extends javax.swing.JDialog {
             }
         });
 
+        inzeratTextArea.setColumns(20);
+        inzeratTextArea.setRows(5);
+        jScrollPane2.setViewportView(inzeratTextArea);
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(54, 54, 54)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 612, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(89, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap(673, Short.MAX_VALUE)
                 .addComponent(spatButton)
                 .addGap(27, 27, 27))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(54, 54, 54)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 354, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(31, 31, 31)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 384, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 384, Short.MAX_VALUE)
+                    .addComponent(jScrollPane2))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 12, Short.MAX_VALUE)
                 .addComponent(spatButton)
                 .addContainerGap())
@@ -76,6 +92,14 @@ public class VyhladavacInzeratovForm extends javax.swing.JDialog {
     private void spatButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_spatButtonActionPerformed
         setVisible(false);
     }//GEN-LAST:event_spatButtonActionPerformed
+
+    private void inzeratyListMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_inzeratyListMouseClicked
+        if(evt.getClickCount()==2){
+            InzeratOsobne inzerat = (InzeratOsobne) inzeratyList.getSelectedValue();
+
+            inzeratTextArea.setText(inzerat.toString2());
+        }
+    }//GEN-LAST:event_inzeratyListMouseClicked
 
     /**
      * @param args the command line arguments
@@ -120,8 +144,10 @@ public class VyhladavacInzeratovForm extends javax.swing.JDialog {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JTextArea inzeratTextArea;
     private javax.swing.JList inzeratyList;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JButton spatButton;
     // End of variables declaration//GEN-END:variables
 }

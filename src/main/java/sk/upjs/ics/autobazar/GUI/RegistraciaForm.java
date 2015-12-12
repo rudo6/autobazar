@@ -1,6 +1,9 @@
-package sk.upjs.ics.autobazar;
+package sk.upjs.ics.autobazar.GUI;
 
 import javax.swing.JOptionPane;
+import sk.upjs.ics.autobazar.MySqlPouzivatelDao;
+import sk.upjs.ics.autobazar.Pouzivatel;
+import sk.upjs.ics.autobazar.PouzivatelDao;
 
 public class RegistraciaForm extends javax.swing.JDialog {
     /**
