@@ -52,14 +52,14 @@ public class MainForm extends javax.swing.JFrame {
         int year = cal.get(Calendar.YEAR);
         int day = cal.get(Calendar.DAY_OF_MONTH);
         
-        int nameOfMonth = cal.get(Calendar.DAY_OF_MONTH);
+        int nameOfMonth = cal.get(Calendar.MONTH);
         int nameOfDay = cal.get(Calendar.DAY_OF_WEEK);
        
         Calendar calen = Calendar.getInstance();
         SimpleDateFormat sdf = new SimpleDateFormat("HH:mm:ss");
         
         //+' '+hour+":"+minute+":"+second
-        dateAndTimeLabel.setText("Dnes je"+' '+dayOfWeek[nameOfDay-1]+", "+day+"."+months[nameOfMonth -1]+' '+year +' '+ sdf.format(calen.getTime()));
+        dateAndTimeLabel.setText("Dnes je"+' '+dayOfWeek[nameOfDay-1]+", "+day+"."+months[nameOfMonth]+' '+year +' '+ sdf.format(calen.getTime()));
     }
     /**
      * This method is called from within the constructor to initialize the form.
@@ -134,6 +134,11 @@ public class MainForm extends javax.swing.JFrame {
         });
 
         jToggleButton1.setText("Rozsirene vyhladavanie");
+        jToggleButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jToggleButton1ActionPerformed(evt);
+            }
+        });
 
         znackaLabel.setText("Znacka");
 
@@ -580,6 +585,13 @@ public class MainForm extends javax.swing.JFrame {
     private void motocykelButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_motocykelButtonActionPerformed
         refresh3();
     }//GEN-LAST:event_motocykelButtonActionPerformed
+
+    private void jToggleButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButton1ActionPerformed
+        VyhladavacInzeratovForm vi = new VyhladavacInzeratovForm(this, true, osobne,nakladne,motocykel);
+        vi.setVisible(true);
+        inzeratyList.setListData(vi.hladaj().toArray());
+        
+    }//GEN-LAST:event_jToggleButton1ActionPerformed
 
     private void refresh() {        
         currentDateAndTime();

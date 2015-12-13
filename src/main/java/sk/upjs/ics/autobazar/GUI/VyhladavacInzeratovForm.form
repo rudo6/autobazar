@@ -24,54 +24,91 @@
     <DimensionLayout dim="0">
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" alignment="1" attributes="0">
-              <EmptySpace pref="673" max="32767" attributes="0"/>
+              <EmptySpace max="32767" attributes="0"/>
+              <Component id="vyhladajButton" min="-2" max="-2" attributes="0"/>
+              <EmptySpace type="separate" max="-2" attributes="0"/>
               <Component id="spatButton" min="-2" max="-2" attributes="0"/>
               <EmptySpace min="-2" pref="27" max="-2" attributes="0"/>
           </Group>
-          <Group type="102" alignment="0" attributes="0">
-              <EmptySpace min="-2" pref="54" max="-2" attributes="0"/>
-              <Component id="jScrollPane1" min="-2" max="-2" attributes="0"/>
-              <EmptySpace type="unrelated" max="-2" attributes="0"/>
-              <Component id="jScrollPane2" min="-2" pref="354" max="-2" attributes="0"/>
-              <EmptySpace max="32767" attributes="0"/>
+          <Component id="jSeparator1" alignment="0" max="32767" attributes="0"/>
+          <Group type="102" attributes="0">
+              <Group type="103" groupAlignment="0" attributes="0">
+                  <Group type="102" alignment="0" attributes="0">
+                      <EmptySpace min="-2" pref="96" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                          <Component id="doBox" max="32767" attributes="0"/>
+                          <Component id="modelBox" max="32767" attributes="0"/>
+                          <Component id="znackaBox" max="32767" attributes="0"/>
+                          <Component id="odBox" alignment="0" max="32767" attributes="0"/>
+                          <Component id="cenaOdBox" alignment="0" max="32767" attributes="0"/>
+                          <Component id="cenaDoBox" alignment="0" max="32767" attributes="0"/>
+                      </Group>
+                      <EmptySpace min="-2" pref="77" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="1" attributes="0">
+                          <Component id="odKmLabel" min="-2" max="-2" attributes="0"/>
+                          <Component id="doKmLabel" min="-2" max="-2" attributes="0"/>
+                      </Group>
+                      <EmptySpace type="separate" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                          <Component id="kmOdTextField" pref="115" max="32767" attributes="0"/>
+                          <Component id="kmDoTextField" max="32767" attributes="0"/>
+                      </Group>
+                  </Group>
+                  <Group type="102" alignment="0" attributes="0">
+                      <EmptySpace min="-2" pref="98" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Component id="klimaCheckBox" min="-2" max="-2" attributes="0"/>
+                          <Component id="tazneCheckBox" min="-2" max="-2" attributes="0"/>
+                          <Component id="sedadlaCheckBox" alignment="0" min="-2" max="-2" attributes="0"/>
+                      </Group>
+                  </Group>
+              </Group>
+              <EmptySpace pref="556" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
     <DimensionLayout dim="1">
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" alignment="0" attributes="0">
-              <EmptySpace min="-2" pref="31" max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                  <Component id="jScrollPane1" pref="384" max="32767" attributes="0"/>
-                  <Component id="jScrollPane2" max="32767" attributes="0"/>
+              <EmptySpace min="-2" pref="49" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="3" attributes="0">
+                  <Component id="znackaBox" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="kmOdTextField" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="odKmLabel" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace pref="12" max="32767" attributes="0"/>
-              <Component id="spatButton" min="-2" max="-2" attributes="0"/>
+              <EmptySpace type="separate" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="3" attributes="0">
+                  <Component id="modelBox" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="kmDoTextField" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="doKmLabel" alignment="3" min="-2" max="-2" attributes="0"/>
+              </Group>
+              <EmptySpace type="separate" max="-2" attributes="0"/>
+              <Component id="odBox" min="-2" max="-2" attributes="0"/>
+              <EmptySpace type="separate" max="-2" attributes="0"/>
+              <Component id="doBox" min="-2" max="-2" attributes="0"/>
+              <EmptySpace type="separate" max="-2" attributes="0"/>
+              <Component id="cenaOdBox" min="-2" max="-2" attributes="0"/>
+              <EmptySpace type="separate" max="-2" attributes="0"/>
+              <Component id="cenaDoBox" min="-2" max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="20" max="-2" attributes="0"/>
+              <Component id="jSeparator1" min="-2" pref="10" max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="50" max="-2" attributes="0"/>
+              <Component id="tazneCheckBox" min="-2" max="-2" attributes="0"/>
+              <EmptySpace type="separate" max="-2" attributes="0"/>
+              <Component id="klimaCheckBox" min="-2" max="-2" attributes="0"/>
+              <EmptySpace type="separate" max="-2" attributes="0"/>
+              <Component id="sedadlaCheckBox" min="-2" max="-2" attributes="0"/>
+              <EmptySpace pref="136" max="32767" attributes="0"/>
+              <Group type="103" groupAlignment="3" attributes="0">
+                  <Component id="spatButton" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="vyhladajButton" alignment="3" min="-2" max="-2" attributes="0"/>
+              </Group>
               <EmptySpace max="-2" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
   </Layout>
   <SubComponents>
-    <Container class="javax.swing.JScrollPane" name="jScrollPane1">
-      <AuxValues>
-        <AuxValue name="autoScrollPane" type="java.lang.Boolean" value="true"/>
-      </AuxValues>
-
-      <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
-      <SubComponents>
-        <Component class="javax.swing.JList" name="inzeratyList">
-          <Properties>
-            <Property name="model" type="javax.swing.ListModel" editor="org.netbeans.modules.form.editors2.ListModelEditor">
-              <StringArray count="0"/>
-            </Property>
-          </Properties>
-          <Events>
-            <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="inzeratyListMouseClicked"/>
-          </Events>
-        </Component>
-      </SubComponents>
-    </Container>
     <Component class="javax.swing.JButton" name="spatButton">
       <Properties>
         <Property name="text" type="java.lang.String" value="sp&#xe4;&#x165;"/>
@@ -80,20 +117,124 @@
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="spatButtonActionPerformed"/>
       </Events>
     </Component>
-    <Container class="javax.swing.JScrollPane" name="jScrollPane2">
-      <AuxValues>
-        <AuxValue name="autoScrollPane" type="java.lang.Boolean" value="true"/>
-      </AuxValues>
-
-      <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
-      <SubComponents>
-        <Component class="javax.swing.JTextArea" name="inzeratTextArea">
-          <Properties>
-            <Property name="columns" type="int" value="20"/>
-            <Property name="rows" type="int" value="5"/>
-          </Properties>
-        </Component>
-      </SubComponents>
-    </Container>
+    <Component class="javax.swing.JComboBox" name="znackaBox">
+      <Properties>
+        <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
+          <StringArray count="5">
+            <StringItem index="0" value="zadaj znacku ..."/>
+            <StringItem index="1" value="Audi"/>
+            <StringItem index="2" value="Skoda"/>
+            <StringItem index="3" value="Volkswagen"/>
+            <StringItem index="4" value="Volvo"/>
+          </StringArray>
+        </Property>
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="znackaBoxActionPerformed"/>
+      </Events>
+    </Component>
+    <Component class="javax.swing.JComboBox" name="modelBox">
+      <Properties>
+        <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
+          <StringArray count="0"/>
+        </Property>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JComboBox" name="odBox">
+      <Properties>
+        <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
+          <StringArray count="3">
+            <StringItem index="0" value="2000"/>
+            <StringItem index="1" value="2001"/>
+            <StringItem index="2" value="2002"/>
+          </StringArray>
+        </Property>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JComboBox" name="doBox">
+      <Properties>
+        <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
+          <StringArray count="3">
+            <StringItem index="0" value="2015"/>
+            <StringItem index="1" value="2014"/>
+            <StringItem index="2" value="2013"/>
+          </StringArray>
+        </Property>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JSeparator" name="jSeparator1">
+    </Component>
+    <Component class="javax.swing.JComboBox" name="cenaOdBox">
+      <Properties>
+        <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
+          <StringArray count="11">
+            <StringItem index="0" value="zadaj cenu ..."/>
+            <StringItem index="1" value="0"/>
+            <StringItem index="2" value="100"/>
+            <StringItem index="3" value="500"/>
+            <StringItem index="4" value="1000"/>
+            <StringItem index="5" value="1500"/>
+            <StringItem index="6" value="3000"/>
+            <StringItem index="7" value="5000"/>
+            <StringItem index="8" value="8000"/>
+            <StringItem index="9" value="12000"/>
+            <StringItem index="10" value="20000"/>
+          </StringArray>
+        </Property>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JComboBox" name="cenaDoBox">
+      <Properties>
+        <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
+          <StringArray count="8">
+            <StringItem index="0" value="zadaj cenu ..."/>
+            <StringItem index="1" value="30000"/>
+            <StringItem index="2" value="15000"/>
+            <StringItem index="3" value="10000"/>
+            <StringItem index="4" value="6000"/>
+            <StringItem index="5" value="3000"/>
+            <StringItem index="6" value="1000"/>
+            <StringItem index="7" value="500"/>
+          </StringArray>
+        </Property>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JCheckBox" name="tazneCheckBox">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Tazne zariadenie"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JCheckBox" name="klimaCheckBox">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Klimatizacia"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JCheckBox" name="sedadlaCheckBox">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Vyhrievane sedadla"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JTextField" name="kmOdTextField">
+    </Component>
+    <Component class="javax.swing.JTextField" name="kmDoTextField">
+    </Component>
+    <Component class="javax.swing.JLabel" name="odKmLabel">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="od km"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JLabel" name="doKmLabel">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="do km"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JButton" name="vyhladajButton">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Vyhladaj"/>
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="vyhladajButtonActionPerformed"/>
+      </Events>
+    </Component>
   </SubComponents>
 </Form>

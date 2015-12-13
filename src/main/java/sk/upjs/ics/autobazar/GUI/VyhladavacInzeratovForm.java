@@ -2,11 +2,21 @@ package sk.upjs.ics.autobazar.GUI;
 
 import java.awt.Frame;
 import java.util.List;
+import javax.swing.DefaultComboBoxModel;
+import sk.upjs.ics.autobazar.InzeratFactory;
+import sk.upjs.ics.autobazar.InzeratMotocykel;
 import sk.upjs.ics.autobazar.InzeratOsobne;
+import sk.upjs.ics.autobazar.InzeratOsobneDao;
 
 
 public class VyhladavacInzeratovForm extends javax.swing.JDialog {
 
+    private boolean osobne;
+    private boolean nakladne;
+    private boolean motocykel;
+    private InzeratOsobneDao inzeratDao = InzeratFactory.INSTANCE.getInzeratOsobneDao();
+    public List<InzeratOsobne> inzeraty = null;
+    
     /**
      * Creates new form VyhladavacInzeratovForm
      */
@@ -16,12 +26,19 @@ public class VyhladavacInzeratovForm extends javax.swing.JDialog {
         
     }
     
-    VyhladavacInzeratovForm(Frame parent, boolean modal, List<InzeratOsobne> inzeraty) {
+    VyhladavacInzeratovForm(Frame parent, boolean modal, boolean osobne, boolean nakladne, boolean motocykel) {
         super(parent, modal);
         initComponents();
         setLocationRelativeTo(null);
+        this.osobne=osobne;
+        this.nakladne=nakladne;
+        this.motocykel=motocykel;
          
-        inzeratyList.setListData(inzeraty.toArray());
+        //inzeratyList.setListData(inzeraty.toArray());
+    }
+    
+    public List<InzeratOsobne> hladaj(){
+        return inzeraty;
     }
 
     /**
@@ -33,20 +50,24 @@ public class VyhladavacInzeratovForm extends javax.swing.JDialog {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jScrollPane1 = new javax.swing.JScrollPane();
-        inzeratyList = new javax.swing.JList();
         spatButton = new javax.swing.JButton();
-        jScrollPane2 = new javax.swing.JScrollPane();
-        inzeratTextArea = new javax.swing.JTextArea();
+        znackaBox = new javax.swing.JComboBox();
+        modelBox = new javax.swing.JComboBox();
+        odBox = new javax.swing.JComboBox();
+        doBox = new javax.swing.JComboBox();
+        jSeparator1 = new javax.swing.JSeparator();
+        cenaOdBox = new javax.swing.JComboBox();
+        cenaDoBox = new javax.swing.JComboBox();
+        tazneCheckBox = new javax.swing.JCheckBox();
+        klimaCheckBox = new javax.swing.JCheckBox();
+        sedadlaCheckBox = new javax.swing.JCheckBox();
+        kmOdTextField = new javax.swing.JTextField();
+        kmDoTextField = new javax.swing.JTextField();
+        odKmLabel = new javax.swing.JLabel();
+        doKmLabel = new javax.swing.JLabel();
+        vyhladajButton = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-
-        inzeratyList.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                inzeratyListMouseClicked(evt);
-            }
-        });
-        jScrollPane1.setViewportView(inzeratyList);
 
         spatButton.setText("späť");
         spatButton.addActionListener(new java.awt.event.ActionListener() {
@@ -55,34 +76,109 @@ public class VyhladavacInzeratovForm extends javax.swing.JDialog {
             }
         });
 
-        inzeratTextArea.setColumns(20);
-        inzeratTextArea.setRows(5);
-        jScrollPane2.setViewportView(inzeratTextArea);
+        znackaBox.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "zadaj znacku ...", "Audi", "Skoda", "Volkswagen", "Volvo" }));
+        znackaBox.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                znackaBoxActionPerformed(evt);
+            }
+        });
+
+        odBox.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "2000", "2001", "2002" }));
+
+        doBox.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "2015", "2014", "2013" }));
+
+        cenaOdBox.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "zadaj cenu ...", "0", "100", "500", "1000", "1500", "3000", "5000", "8000", "12000", "20000" }));
+
+        cenaDoBox.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "zadaj cenu ...", "30000", "15000", "10000", "6000", "3000", "1000", "500" }));
+
+        tazneCheckBox.setText("Tazne zariadenie");
+
+        klimaCheckBox.setText("Klimatizacia");
+
+        sedadlaCheckBox.setText("Vyhrievane sedadla");
+
+        odKmLabel.setText("od km");
+
+        doKmLabel.setText("do km");
+
+        vyhladajButton.setText("Vyhladaj");
+        vyhladajButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                vyhladajButtonActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(673, Short.MAX_VALUE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(vyhladajButton)
+                .addGap(18, 18, 18)
                 .addComponent(spatButton)
                 .addGap(27, 27, 27))
+            .addComponent(jSeparator1)
             .addGroup(layout.createSequentialGroup()
-                .addGap(54, 54, 54)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 354, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(96, 96, 96)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(doBox, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(modelBox, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(znackaBox, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(odBox, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(cenaOdBox, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(cenaDoBox, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGap(77, 77, 77)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(odKmLabel)
+                            .addComponent(doKmLabel))
+                        .addGap(18, 18, 18)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(kmOdTextField, javax.swing.GroupLayout.DEFAULT_SIZE, 115, Short.MAX_VALUE)
+                            .addComponent(kmDoTextField)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(98, 98, 98)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(klimaCheckBox)
+                            .addComponent(tazneCheckBox)
+                            .addComponent(sedadlaCheckBox))))
+                .addContainerGap(556, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(31, 31, 31)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 384, Short.MAX_VALUE)
-                    .addComponent(jScrollPane2))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 12, Short.MAX_VALUE)
-                .addComponent(spatButton)
+                .addGap(49, 49, 49)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(znackaBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(kmOdTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(odKmLabel))
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(modelBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(kmDoTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(doKmLabel))
+                .addGap(18, 18, 18)
+                .addComponent(odBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(doBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(cenaOdBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(cenaDoBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(20, 20, 20)
+                .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(50, 50, 50)
+                .addComponent(tazneCheckBox)
+                .addGap(18, 18, 18)
+                .addComponent(klimaCheckBox)
+                .addGap(18, 18, 18)
+                .addComponent(sedadlaCheckBox)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 136, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(spatButton)
+                    .addComponent(vyhladajButton))
                 .addContainerGap())
         );
 
@@ -93,13 +189,73 @@ public class VyhladavacInzeratovForm extends javax.swing.JDialog {
         setVisible(false);
     }//GEN-LAST:event_spatButtonActionPerformed
 
-    private void inzeratyListMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_inzeratyListMouseClicked
-        if(evt.getClickCount()==2){
-            InzeratOsobne inzerat = (InzeratOsobne) inzeratyList.getSelectedValue();
-
-            inzeratTextArea.setText(inzerat.toString2());
+    private void znackaBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_znackaBoxActionPerformed
+       if (osobne == true && nakladne == false && motocykel == false) {
+            if (znackaBox.getSelectedIndex() == 1) {
+                String[] items = {"A4", "A6", "Q7"};
+                modelBox.setModel(new DefaultComboBoxModel(items));
+            }
+    
+            if (znackaBox.getSelectedIndex() == 2) {
+                String[] items = {"Fabia", "Octavia", "Felicia"};
+                modelBox.setModel(new DefaultComboBoxModel(items));
+            }
+            if (znackaBox.getSelectedIndex() == 3) {
+                String[] items = {"Polo", "Golf", "Passat"};
+                modelBox.setModel(new DefaultComboBoxModel(items));
+            }
+            if (znackaBox.getSelectedIndex() == 4) {
+                String[] items = {"S60", "XC70", "XC90"};
+                modelBox.setModel(new DefaultComboBoxModel(items));
+            }
         }
-    }//GEN-LAST:event_inzeratyListMouseClicked
+        if(nakladne==true && osobne==false && motocykel==false){
+            if (znackaBox.getSelectedIndex() == 1) {
+                String[] items = {"LF", "CF", "XF"};
+                modelBox.setModel(new DefaultComboBoxModel(items));
+            }
+
+            if (znackaBox.getSelectedIndex() == 2) {
+                String[] items = {"Eurocargo 2", "Stralis 2", "Trakker 2"};
+                modelBox.setModel(new DefaultComboBoxModel(items));
+            }
+            if (znackaBox.getSelectedIndex() == 3) {
+                String[] items = {"TGM", "TGA", "TGL", "TGS"};
+                modelBox.setModel(new DefaultComboBoxModel(items));
+            }
+            if (znackaBox.getSelectedIndex() == 4) {
+                String[] items = {"FM", "FH", "FH16"};
+                modelBox.setModel(new DefaultComboBoxModel(items));
+            }
+        }
+        if(nakladne==false && osobne==false && motocykel==true){
+            if (znackaBox.getSelectedIndex() == 1) {
+                String[] items = {"S", "F", "R"};
+                modelBox.setModel(new DefaultComboBoxModel(items));
+            }
+
+            if (znackaBox.getSelectedIndex() == 2) {
+                String[] items = {"CBR", "VTR", "CBF"};
+                modelBox.setModel(new DefaultComboBoxModel(items));
+            }
+            if (znackaBox.getSelectedIndex() == 3) {
+                String[] items = {"SX", "EXC", "RC", "DUKE 3"};
+                modelBox.setModel(new DefaultComboBoxModel(items));
+            }
+            if (znackaBox.getSelectedIndex() == 4) {
+                String[] items = {"GSR", "GSX", "SV"};
+                modelBox.setModel(new DefaultComboBoxModel(items));
+            }
+        }
+    }//GEN-LAST:event_znackaBoxActionPerformed
+
+    private void vyhladajButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_vyhladajButtonActionPerformed
+        if (osobne == true && nakladne == false && motocykel == false) {
+            inzeraty = inzeratDao.vyhladaj(znackaBox.getSelectedItem().toString(), modelBox.getSelectedItem().toString(),
+                    odBox.getSelectedItem().toString(), doBox.getSelectedItem().toString());
+        }
+        setVisible(false);
+    }//GEN-LAST:event_vyhladajButtonActionPerformed
 
     /**
      * @param args the command line arguments
@@ -144,10 +300,21 @@ public class VyhladavacInzeratovForm extends javax.swing.JDialog {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JTextArea inzeratTextArea;
-    private javax.swing.JList inzeratyList;
-    private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JComboBox cenaDoBox;
+    private javax.swing.JComboBox cenaOdBox;
+    private javax.swing.JComboBox doBox;
+    private javax.swing.JLabel doKmLabel;
+    private javax.swing.JSeparator jSeparator1;
+    private javax.swing.JCheckBox klimaCheckBox;
+    private javax.swing.JTextField kmDoTextField;
+    private javax.swing.JTextField kmOdTextField;
+    private javax.swing.JComboBox modelBox;
+    private javax.swing.JComboBox odBox;
+    private javax.swing.JLabel odKmLabel;
+    private javax.swing.JCheckBox sedadlaCheckBox;
     private javax.swing.JButton spatButton;
+    private javax.swing.JCheckBox tazneCheckBox;
+    private javax.swing.JButton vyhladajButton;
+    private javax.swing.JComboBox znackaBox;
     // End of variables declaration//GEN-END:variables
 }
