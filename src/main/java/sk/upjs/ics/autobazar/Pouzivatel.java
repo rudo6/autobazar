@@ -1,5 +1,8 @@
 package sk.upjs.ics.autobazar;
 
+import java.util.LinkedList;
+import java.util.List;
+
 public class Pouzivatel {
     
     private Long id;
@@ -23,6 +26,10 @@ public class Pouzivatel {
     private String telefonneCislo;
     
     private String email;
+    
+    private List<InzeratOsobne> inzeratyOsobne = new LinkedList<>();
+    private List<InzeratNakladne> inzeratyNakladne = new LinkedList<>();
+    private List<InzeratMotocykel> inzeratyMotocykel = new LinkedList<>();
 
     public Long getId() {
         return id;
@@ -111,7 +118,35 @@ public class Pouzivatel {
     public void setEmail(String email) {
         this.email = email;
     }
-    
+
+    @Override
+    public String toString() {
+        return this.uzivatelskeMeno;
+    }
+
+    public List<InzeratOsobne> getInzeratyOsobne() {
+        return inzeratyOsobne;
+    }
+
+    public void setInzeratyOsobne(List<InzeratOsobne> inzeratyOsobne) {
+        this.inzeratyOsobne = inzeratyOsobne;
+    }
+
+    public List<InzeratNakladne> getInzeratyNakladne() {
+        return inzeratyNakladne;
+    }
+
+    public void setInzeratyNakladne(List<InzeratNakladne> inzeratyNakladne) {
+        this.inzeratyNakladne = inzeratyNakladne;
+    }
+
+    public List<InzeratMotocykel> getInzeratyMotocykel() {
+        return inzeratyMotocykel;
+    }
+
+    public void setInzeratyMotocykel(List<InzeratMotocykel> inzeratyMotocykel) {
+        this.inzeratyMotocykel = inzeratyMotocykel;
+    }
     
     
 }

@@ -5,7 +5,8 @@ import sk.upjs.ics.autobazar.MySqlPouzivatelDao;
 import sk.upjs.ics.autobazar.PouzivatelDao;
 
 public class PrihlasenieForm extends javax.swing.JDialog {
-
+    private boolean prihlaseny = false;
+    private Long idP = null;
     /**
      * Creates new form PrihlasenieForm
      */
@@ -107,15 +108,26 @@ public class PrihlasenieForm extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void prihlasitButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_prihlasitButtonActionPerformed
-       PouzivatelDao pd = new MySqlPouzivatelDao();
-       if(pd.overPouzivatela(uzivatelskeMenoTextField.getText(), hesloTextField.getText()) == false) {
-        JOptionPane.showMessageDialog(this, "Nespravne meno alebo heslo.", "Chyba", JOptionPane.ERROR_MESSAGE);
-        return;
+        PouzivatelDao pd = new MySqlPouzivatelDao();
+        if (pd.overPouzivatela(uzivatelskeMenoTextField.getText(), hesloTextField.getText()) == null) {
+            JOptionPane.showMessageDialog(this, "Nespravne meno alebo heslo.", "Chyba", JOptionPane.ERROR_MESSAGE);
+            return;
         }
-        
+        else{
+            this.idP=pd.overPouzivatela(uzivatelskeMenoTextField.getText(), hesloTextField.getText());
+            this.prihlaseny=true;
+        }
+
         setVisible(false);
     }//GEN-LAST:event_prihlasitButtonActionPerformed
 
+    public boolean getPrihlaseny(){
+        return prihlaseny;
+    }
+    public Long getIdP(){
+        return this.idP;
+    }
+    
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">

@@ -1,11 +1,14 @@
 package sk.upjs.ics.autobazar.GUI;
 
 import javax.swing.JOptionPane;
+import sk.upjs.ics.autobazar.InzeratFactory;
 import sk.upjs.ics.autobazar.MySqlPouzivatelDao;
 import sk.upjs.ics.autobazar.Pouzivatel;
 import sk.upjs.ics.autobazar.PouzivatelDao;
 
 public class RegistraciaForm extends javax.swing.JDialog {
+     private PouzivatelDao pouzivatelDao = InzeratFactory.INSTANCE.getPouzivatel();
+     
     /**
      * Creates new form RegistraciaForm
      */
@@ -125,7 +128,7 @@ public class RegistraciaForm extends javax.swing.JDialog {
 
         jLabel9.setText("Krajina:");
 
-        krajinaComboBox.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Slovenska republika", "Ceska republika", " " }));
+        krajinaComboBox.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Slovenska republika", "Ceska republika" }));
         krajinaComboBox.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 krajinaComboBoxActionPerformed(evt);
@@ -411,9 +414,9 @@ public class RegistraciaForm extends javax.swing.JDialog {
         return;
     }
         
-        PouzivatelDao pd = new MySqlPouzivatelDao();
+        //PouzivatelDao pd = new MySqlPouzivatelDao();
         
-        pd.pridajPouzivatela(p);
+        pouzivatelDao.pridajPouzivatela(p);
         setVisible(false);
     }//GEN-LAST:event_registrovatButtonActionPerformed
 

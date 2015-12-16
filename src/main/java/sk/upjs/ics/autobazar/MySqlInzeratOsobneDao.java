@@ -7,22 +7,18 @@ import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapperResultSetExtractor;
 
-public class MySqlInzeratDao implements InzeratOsobneDao{
+public class MySqlInzeratOsobneDao implements InzeratOsobneDao{
     private JdbcTemplate jdbcTemplate;
     
-    public MySqlInzeratDao() {
-        MysqlDataSource dataSource = new MysqlDataSource();
-        dataSource.setURL("jdbc:mysql://localhost/autobazar");
-        dataSource.setUser("autobazar");
-        dataSource.setPassword("autobazar");
-        
-        jdbcTemplate = new JdbcTemplate(dataSource);
+    public MySqlInzeratOsobneDao() {
+        MysqlDataSource dataSource = InzeratFactory.INSTANCE.dataSource();        
+        jdbcTemplate = InzeratFactory.INSTANCE.jdbcTemplate();
     }
     
     @Override
     public void pridat(InzeratOsobne inzerat) {
-        String sql = "INSERT INTO inzerat VALUES (?,?,?)";
-        jdbcTemplate.update(sql,null,inzerat.getZnacka(),inzerat.getModel());
+        String sql = "INSERT INTO inzerat VALUES (?,?,?,?,?,?,?,?,?,?,?)";
+        jdbcTemplate.update(sql,inzerat.getIdP(),null,inzerat.getZnacka(),inzerat.getModel(),inzerat.getRocnik(),inzerat.getKm(),inzerat.getObjem(),inzerat.getPrevodovka(),inzerat.getVykon(),inzerat.getDatumPridania(), inzerat.getCena());
     }
 
     @Override
@@ -31,18 +27,21 @@ public class MySqlInzeratDao implements InzeratOsobneDao{
         BeanPropertyRowMapper<InzeratOsobne> mapper = BeanPropertyRowMapper.newInstance(InzeratOsobne.class);
         return jdbcTemplate.query(sql, mapper); /*dam dopyt a mapper a vypuje zoznam uloh ktore mozme pouzit*/
     }
+    
 
     @Override
-    public void odstranit(InzeratOsobne uloha) {
+    public void odstranit(InzeratOsobne inzerat) {
         String sql = "delete from inzerat where id = ?";
-        jdbcTemplate.update(sql, uloha.getId());
+        jdbcTemplate.update(sql, inzerat.getId());
     }
 
     @Override
     public List<InzeratOsobne> vyhladaj(String znacka, String model, String odRocnik, String doRocnik) {
-        //String sql = "select * from inzerat where znacka = ? and model = ? and rocnik >= ? and rocnik <= ?";
-        //BeanPropertyRowMapper<Inzerat> mapper = BeanPropertyRowMapper.newInstance(InzeratOsobne.class);
-        String sql = "SELECT * FROM inzerat";
+        String sql = "select * from inzerat where znacka = ? and model = ? and rocnik >= ? and rocnik <= ?";
+        BeanPropertyRowMapper<InzeratOsobne> mapper = BeanPropertyRowMapper.newInstance(InzeratOsobne.class);
+        return jdbcTemplate.query(sql, mapper,znacka,model,odRocnik,doRocnik); 
+        
+        /*String sql = "SELECT * FROM inzerat";
         BeanPropertyRowMapper<InzeratOsobne> mapper = BeanPropertyRowMapper.newInstance(InzeratOsobne.class);
         List<InzeratOsobne> pomocna = jdbcTemplate.query(sql, mapper);
         List<InzeratOsobne> pomocna2 = new LinkedList<InzeratOsobne>();
@@ -58,6 +57,13 @@ public class MySqlInzeratDao implements InzeratOsobneDao{
                 }
             }
         }
-        return pomocna2;
+        return pomocna2;*/
+    }
+
+    @Override
+    public List<InzeratOsobne> dajPodlaPouzivatela(Long idP) {
+        String sql = "SELECT * FROM inzerat where idP = ?";
+        BeanPropertyRowMapper<InzeratOsobne> mapper = BeanPropertyRowMapper.newInstance(InzeratOsobne.class);
+        return jdbcTemplate.query(sql, mapper,idP);
     }
 }

@@ -1,10 +1,6 @@
  
 package sk.upjs.ics.autobazar.GUI;
 
-import sk.upjs.ics.autobazar.GUI.PrihlasenieForm;
-import sk.upjs.ics.autobazar.GUI.RegistraciaForm;
-import sk.upjs.ics.autobazar.GUI.VyhladavacInzeratovForm;
-import static java.lang.System.load;
 import java.text.SimpleDateFormat;
 import java.util.List;
 import javax.swing.DefaultComboBoxModel;
@@ -33,6 +29,9 @@ public class MainForm extends javax.swing.JFrame {
     private boolean osobne = true;
     private boolean nakladne = false;
     private boolean motocykel = false;
+    
+    private boolean prihlaseny = false;
+    private Long idP = null;
     
     /**
      * Creates new form MainForm
@@ -77,7 +76,7 @@ public class MainForm extends javax.swing.JFrame {
         znackaBox = new javax.swing.JComboBox();
         modelBox = new javax.swing.JComboBox();
         vyhladajButton = new javax.swing.JButton();
-        jToggleButton1 = new javax.swing.JToggleButton();
+        rozsireneButton = new javax.swing.JToggleButton();
         znackaLabel = new javax.swing.JLabel();
         modelLabel = new javax.swing.JLabel();
         rocnikOdBox = new javax.swing.JComboBox();
@@ -99,6 +98,7 @@ public class MainForm extends javax.swing.JFrame {
         osobneButton = new javax.swing.JButton();
         nakladneButton = new javax.swing.JButton();
         motocykelButton = new javax.swing.JButton();
+        odhlasitButton = new javax.swing.JButton();
         downPanel = new javax.swing.JPanel();
         copyrightLabel = new javax.swing.JLabel();
 
@@ -133,10 +133,10 @@ public class MainForm extends javax.swing.JFrame {
             }
         });
 
-        jToggleButton1.setText("Rozsirene vyhladavanie");
-        jToggleButton1.addActionListener(new java.awt.event.ActionListener() {
+        rozsireneButton.setText("Rozsirene vyhladavanie");
+        rozsireneButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jToggleButton1ActionPerformed(evt);
+                rozsireneButtonActionPerformed(evt);
             }
         });
 
@@ -187,7 +187,7 @@ public class MainForm extends javax.swing.JFrame {
                         .addGap(79, 79, 79))))
             .addGroup(vyhladavaciPanelLayout.createSequentialGroup()
                 .addGap(17, 17, 17)
-                .addComponent(jToggleButton1)
+                .addComponent(rozsireneButton)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(vyhladajButton)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -215,7 +215,7 @@ public class MainForm extends javax.swing.JFrame {
                     .addComponent(rocnikDoLabel))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 234, Short.MAX_VALUE)
                 .addGroup(vyhladavaciPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jToggleButton1)
+                    .addComponent(rozsireneButton)
                     .addComponent(vyhladajButton))
                 .addGap(38, 38, 38))
         );
@@ -286,7 +286,12 @@ public class MainForm extends javax.swing.JFrame {
         nadpisLabel.setText("utobazar.sk");
 
         pridatInzeratButton.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        pridatInzeratButton.setText("Pridat inzerat");
+        pridatInzeratButton.setText("Menu pouzivatela");
+        pridatInzeratButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                pridatInzeratButtonActionPerformed(evt);
+            }
+        });
 
         podnadpisLabel.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         podnadpisLabel.setForeground(new java.awt.Color(255, 255, 255));
@@ -324,11 +329,22 @@ public class MainForm extends javax.swing.JFrame {
             }
         });
 
+        odhlasitButton.setBackground(new java.awt.Color(255, 255, 0));
+        odhlasitButton.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        odhlasitButton.setForeground(new java.awt.Color(204, 0, 0));
+        odhlasitButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/sk/upjs/ics/autobazar/ikonky/panacik.png"))); // NOI18N
+        odhlasitButton.setText("Odhlasit");
+        odhlasitButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                odhlasitButtonActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout autobazarPanelLayout = new javax.swing.GroupLayout(autobazarPanel);
         autobazarPanel.setLayout(autobazarPanelLayout);
         autobazarPanelLayout.setHorizontalGroup(
             autobazarPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(autobazarPanelLayout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, autobazarPanelLayout.createSequentialGroup()
                 .addGroup(autobazarPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(autobazarPanelLayout.createSequentialGroup()
                         .addGap(26, 26, 26)
@@ -343,21 +359,25 @@ public class MainForm extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addComponent(motocykelButton, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(pridatInzeratButton, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(autobazarPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(pridatInzeratButton, javax.swing.GroupLayout.DEFAULT_SIZE, 138, Short.MAX_VALUE)
+                    .addComponent(odhlasitButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(27, 27, 27))
         );
         autobazarPanelLayout.setVerticalGroup(
             autobazarPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, autobazarPanelLayout.createSequentialGroup()
+            .addGroup(autobazarPanelLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(autobazarPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(motocykelButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(nakladneButton, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(osobneButton, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                .addGroup(autobazarPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(autobazarPanelLayout.createSequentialGroup()
-                        .addGroup(autobazarPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addComponent(nadpisLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(pridatInzeratButton, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(pridatInzeratButton, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(odhlasitButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(motocykelButton, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(nakladneButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(osobneButton, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, autobazarPanelLayout.createSequentialGroup()
+                        .addComponent(nadpisLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 10, Short.MAX_VALUE)
                         .addComponent(podnadpisLabel)))
                 .addContainerGap())
@@ -504,22 +524,16 @@ public class MainForm extends javax.swing.JFrame {
         if (osobne == true && nakladne == false && motocykel == false) {
             List<InzeratOsobne> inzeraty = inzeratDao.vyhladaj(znackaBox.getSelectedItem().toString(), modelBox.getSelectedItem().toString(),
                     rocnikOdBox.getSelectedItem().toString(), rocnikDoBox.getSelectedItem().toString());
-        //VyhladavacInzeratovForm v = new VyhladavacInzeratovForm(this, true,inzeraty);
-            //v.setVisible(true);
             inzeratyList.setListData(inzeraty.toArray());
         }
         if(nakladne==true && osobne==false && motocykel==false){
             List<InzeratNakladne> inzeraty = inzeratDao2.vyhladaj(znackaBox.getSelectedItem().toString(), modelBox.getSelectedItem().toString(),
                     rocnikOdBox.getSelectedItem().toString(), rocnikDoBox.getSelectedItem().toString());
-        //VyhladavacInzeratovForm v = new VyhladavacInzeratovForm(this, true,inzeraty);
-            //v.setVisible(true);
             inzeratyList.setListData(inzeraty.toArray());
         }
         if(nakladne==false && osobne==false && motocykel==true){
             List<InzeratMotocykel> inzeraty = inzeratDao3.vyhladaj(znackaBox.getSelectedItem().toString(), modelBox.getSelectedItem().toString(),
                     rocnikOdBox.getSelectedItem().toString(), rocnikDoBox.getSelectedItem().toString());
-        //VyhladavacInzeratovForm v = new VyhladavacInzeratovForm(this, true,inzeraty);
-            //v.setVisible(true);
             inzeratyList.setListData(inzeraty.toArray());
         }
         
@@ -533,8 +547,6 @@ public class MainForm extends javax.swing.JFrame {
 
                 InzeratOsobneForm inzeratform = new InzeratOsobneForm(this, true, inzerat);
                 inzeratform.setVisible(true);
-
-                refresh();
             }
             if(nakladne==true && osobne==false && motocykel==false)
             {
@@ -542,8 +554,6 @@ public class MainForm extends javax.swing.JFrame {
 
                 InzeratNakladneForm inzeratform = new InzeratNakladneForm(this, true, inzerat);
                 inzeratform.setVisible(true);
-
-                refresh2();
             }
             if(nakladne==false && osobne==false && motocykel==true)
             {
@@ -551,7 +561,6 @@ public class MainForm extends javax.swing.JFrame {
 
                 InzeratMotocykelForm inzeratForm = new InzeratMotocykelForm(this, true, inzerat);
                 inzeratForm.setVisible(true);
-                refresh3();
             }
         }
     }//GEN-LAST:event_inzeratyListMouseClicked
@@ -570,8 +579,14 @@ public class MainForm extends javax.swing.JFrame {
     }//GEN-LAST:event_registraciaButtonActionPerformed
 
     private void prihlasenieButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_prihlasenieButtonActionPerformed
-        PrihlasenieForm pf = new PrihlasenieForm(this, true);
-        pf.setVisible(true);
+        if (prihlaseny == false) {
+            PrihlasenieForm pf = new PrihlasenieForm(this, true);
+            pf.setVisible(true);
+            this.prihlaseny=pf.getPrihlaseny();
+            this.idP=pf.getIdP();
+        }else{
+            JOptionPane.showMessageDialog(this, "Pouzivatel je stale prihlaseny!");
+        }
     }//GEN-LAST:event_prihlasenieButtonActionPerformed
 
     private void osobneButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_osobneButtonActionPerformed
@@ -586,12 +601,46 @@ public class MainForm extends javax.swing.JFrame {
         refresh3();
     }//GEN-LAST:event_motocykelButtonActionPerformed
 
-    private void jToggleButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButton1ActionPerformed
-        VyhladavacInzeratovForm vi = new VyhladavacInzeratovForm(this, true, osobne,nakladne,motocykel);
-        vi.setVisible(true);
-        inzeratyList.setListData(vi.hladaj().toArray());
+    private void rozsireneButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rozsireneButtonActionPerformed
+        if(osobne==true && nakladne==false && motocykel==false){
+            String[] item = {"zadaj znacku ...", "Audi", "Skoda", "Volkswagen", "Volvo"};
+            VyhladavacInzeratovForm vi = new VyhladavacInzeratovForm(this, true, osobne,nakladne,motocykel,item);
+            vi.setVisible(true);
+            inzeratyList.setListData(vi.hladaj().toArray());
+        }
+        if(nakladne==true && osobne==false && motocykel==false){
+            String[] item = {"zadaj znacku ...", "DAF", "Iveco", "MAN", "Mercedes"};
+            VyhladavacInzeratovForm vi = new VyhladavacInzeratovForm(this, true, osobne,nakladne,motocykel,item);
+            vi.setVisible(true);
+            inzeratyList.setListData(vi.hladaj2().toArray());
+        }
+        if(nakladne==false && osobne==false && motocykel==true){
+            String[] item = {"zadaj znacku ...", "BMW", "Honda", "Husqvarna", "Suzuki"};
+            VyhladavacInzeratovForm vi = new VyhladavacInzeratovForm(this, true, osobne,nakladne,motocykel,item);
+            vi.setVisible(true);
+            inzeratyList.setListData(vi.hladaj3().toArray());
+        }
         
-    }//GEN-LAST:event_jToggleButton1ActionPerformed
+    }//GEN-LAST:event_rozsireneButtonActionPerformed
+
+    private void pridatInzeratButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pridatInzeratButtonActionPerformed
+        if(prihlaseny==true){            
+            PouzivatelForm pouzF = new PouzivatelForm(this, true, idP);
+            pouzF.setVisible(true);
+        }else{
+            JOptionPane.showMessageDialog(this, "Nie si prihlaseny!");
+        }
+    }//GEN-LAST:event_pridatInzeratButtonActionPerformed
+
+    private void odhlasitButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_odhlasitButtonActionPerformed
+        if(prihlaseny==false){
+            JOptionPane.showMessageDialog(this, "Nie si prihlaseny!");
+        }else{
+            this.prihlaseny=false;
+            this.idP=null;
+            JOptionPane.showMessageDialog(this, "Odhlaseny!");
+        }
+    }//GEN-LAST:event_odhlasitButtonActionPerformed
 
     private void refresh() {        
         currentDateAndTime();
@@ -668,13 +717,13 @@ public class MainForm extends javax.swing.JFrame {
     private javax.swing.JPanel downPanel;
     private javax.swing.JList inzeratyList;
     private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JToggleButton jToggleButton1;
     private javax.swing.JLabel languageLabel;
     private javax.swing.JComboBox modelBox;
     private javax.swing.JLabel modelLabel;
     private javax.swing.JButton motocykelButton;
     private javax.swing.JLabel nadpisLabel;
     private javax.swing.JButton nakladneButton;
+    private javax.swing.JButton odhlasitButton;
     private javax.swing.JButton osobneButton;
     private javax.swing.JLabel podnadpisLabel;
     private javax.swing.JButton pridatInzeratButton;
@@ -685,6 +734,7 @@ public class MainForm extends javax.swing.JFrame {
     private javax.swing.JLabel rocnikDoLabel;
     private javax.swing.JComboBox rocnikOdBox;
     private javax.swing.JLabel rocnikOdLabel;
+    private javax.swing.JToggleButton rozsireneButton;
     private javax.swing.JPanel topPanel;
     private javax.swing.JButton vyhladajButton;
     private javax.swing.JPanel vyhladavaciPanel;

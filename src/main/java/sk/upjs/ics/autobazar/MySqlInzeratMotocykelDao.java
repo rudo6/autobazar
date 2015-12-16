@@ -10,17 +10,14 @@ public class MySqlInzeratMotocykelDao implements InzeratMotocykelDao{
     private JdbcTemplate jdbcTemplate;
     
     public MySqlInzeratMotocykelDao() {
-        MysqlDataSource dataSource = new MysqlDataSource();
-        dataSource.setURL("jdbc:mysql://localhost/autobazar");
-        dataSource.setUser("autobazar");
-        dataSource.setPassword("autobazar");
-        
-        jdbcTemplate = new JdbcTemplate(dataSource);
+        MysqlDataSource dataSource = InzeratFactory.INSTANCE.dataSource();        
+        jdbcTemplate = InzeratFactory.INSTANCE.jdbcTemplate();
     }
 
     @Override
     public void pridat(InzeratMotocykel inzerat) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        String sql = "INSERT INTO inzeratMotocykel VALUES (?,?,?,?,?,?,?,?,?,?,?)";
+        jdbcTemplate.update(sql,inzerat.getIdP(),null,inzerat.getZnacka(),inzerat.getModel(),inzerat.getRocnik(),inzerat.getKm(),inzerat.getObjem(),inzerat.getPrevodovka(),inzerat.getVykon(),inzerat.getDatumPridania(), inzerat.getCena());
     }
 
     @Override
@@ -53,7 +50,15 @@ public class MySqlInzeratMotocykelDao implements InzeratMotocykelDao{
 
     @Override
     public void odstranit(InzeratMotocykel inzerat) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        String sql = "delete from inzeratMotocykel where id = ?";
+        jdbcTemplate.update(sql, inzerat.getId());
+    }
+
+    @Override
+    public List<InzeratMotocykel> dajPodlaPouzivatela(Long idP) {
+        String sql = "SELECT * FROM inzeratMotocykel where idP = ?";
+        BeanPropertyRowMapper<InzeratMotocykel> mapper = BeanPropertyRowMapper.newInstance(InzeratMotocykel.class);
+        return jdbcTemplate.query(sql, mapper,idP);
     }
     
 }

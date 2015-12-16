@@ -10,4 +10,6 @@ public interface InzeratNakladneDao {
     public List<InzeratNakladne> vyhladaj(String znacka, String model, String odRocnik, String doRocnik);
     
     public void odstranit(InzeratNakladne inzerat);
+    
+    public List<InzeratNakladne> dajPodlaPouzivatela(Long idP);
 }

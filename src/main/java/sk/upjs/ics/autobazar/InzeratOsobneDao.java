@@ -12,4 +12,6 @@ public interface InzeratOsobneDao {
     
     public void odstranit(InzeratOsobne inzerat);
     
+    public List<InzeratOsobne> dajPodlaPouzivatela(Long idP);
+    
 }

@@ -5,6 +5,8 @@ import java.util.Date;
 
 
 public class InzeratOsobne {
+    private Long idP;
+    
     private Long id;
 
     private String znacka;
@@ -15,20 +17,36 @@ public class InzeratOsobne {
 
     private Long objem;
     
-    private int km;
+    private Long km;
     
     public String palivo;
     
     public String prevodovka;
     
-    public int vykon;
+    public Long vykon;
 
     private Date datumPridania;
     
     private Long cena;
 
+    public Long getIdP() {
+        return idP;
+    }
+
+    public void setIdP(Long idP) {
+        this.idP = idP;
+    }
+
     public String getPalivo() {
         return palivo;
+    }
+
+    public Long getKm() {
+        return km;
+    }
+
+    public void setKm(Long km) {
+        this.km = km;
     }
 
     public void setPalivo(String palivo) {
@@ -43,11 +61,11 @@ public class InzeratOsobne {
         this.prevodovka = prevodovka;
     }
 
-    public int getVykon() {
+    public Long getVykon() {
         return vykon;
     }
 
-    public void setVykon(int vykon) {
+    public void setVykon(Long vykon) {
         this.vykon = vykon;
     }
 
@@ -115,7 +133,15 @@ public class InzeratOsobne {
     }
     
     public String toString2() {
-        return "Znacka: "+ this.znacka +"\n"+"Model: "+ this.model +"\n"+"Rok vyroby: "+ this.rocnik +"\n"+"Objem: "+ this.objem+"\n"+"Datum pridania: "+ dateFormat.format(this.datumPridania);
+        return "Znacka: "+ this.znacka +"\n"+
+                "Model: "+ this.model +"\n"+
+                "Rok vyroby: "+ this.rocnik +"\n"+
+                "Objem: "+ this.objem+"\n"+
+                "Vykon: "+this.vykon+" KW\n"+
+                "Pocet najazdenych kilometrov: "+this.km+"\n"+
+                "Palivo: "+this.getPalivo()+"\n"+
+                "Prevodovka: "+this.getPrevodovka()+"\n"+
+                "Datum pridania: "+ dateFormat.format(this.datumPridania);
     }
     
 }

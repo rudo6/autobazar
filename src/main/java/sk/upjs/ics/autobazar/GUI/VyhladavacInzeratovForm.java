@@ -5,6 +5,9 @@ import java.util.List;
 import javax.swing.DefaultComboBoxModel;
 import sk.upjs.ics.autobazar.InzeratFactory;
 import sk.upjs.ics.autobazar.InzeratMotocykel;
+import sk.upjs.ics.autobazar.InzeratMotocykelDao;
+import sk.upjs.ics.autobazar.InzeratNakladne;
+import sk.upjs.ics.autobazar.InzeratNakladneDao;
 import sk.upjs.ics.autobazar.InzeratOsobne;
 import sk.upjs.ics.autobazar.InzeratOsobneDao;
 
@@ -15,7 +18,11 @@ public class VyhladavacInzeratovForm extends javax.swing.JDialog {
     private boolean nakladne;
     private boolean motocykel;
     private InzeratOsobneDao inzeratDao = InzeratFactory.INSTANCE.getInzeratOsobneDao();
+    private InzeratNakladneDao inzeratDao2 = InzeratFactory.INSTANCE.getInzeratNakladneDao();
+    private InzeratMotocykelDao inzeratDao3 = InzeratFactory.INSTANCE.getInzeratMotocykelDao();
     public List<InzeratOsobne> inzeraty = null;
+    public List<InzeratNakladne> inzeraty2 = null;
+    public List<InzeratMotocykel> inzeraty3 = null;
     
     /**
      * Creates new form VyhladavacInzeratovForm
@@ -26,19 +33,26 @@ public class VyhladavacInzeratovForm extends javax.swing.JDialog {
         
     }
     
-    VyhladavacInzeratovForm(Frame parent, boolean modal, boolean osobne, boolean nakladne, boolean motocykel) {
+    VyhladavacInzeratovForm(Frame parent, boolean modal, boolean osobne, boolean nakladne, boolean motocykel, String[] item) {
         super(parent, modal);
         initComponents();
         setLocationRelativeTo(null);
         this.osobne=osobne;
         this.nakladne=nakladne;
         this.motocykel=motocykel;
+        znackaBox.setModel(new DefaultComboBoxModel(item));
          
         //inzeratyList.setListData(inzeraty.toArray());
     }
     
     public List<InzeratOsobne> hladaj(){
         return inzeraty;
+    }
+    public List<InzeratNakladne> hladaj2(){
+        return inzeraty2;
+    }
+    public List<InzeratMotocykel> hladaj3(){
+        return inzeraty3;
     }
 
     /**
@@ -252,6 +266,14 @@ public class VyhladavacInzeratovForm extends javax.swing.JDialog {
     private void vyhladajButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_vyhladajButtonActionPerformed
         if (osobne == true && nakladne == false && motocykel == false) {
             inzeraty = inzeratDao.vyhladaj(znackaBox.getSelectedItem().toString(), modelBox.getSelectedItem().toString(),
+                    odBox.getSelectedItem().toString(), doBox.getSelectedItem().toString());
+        }
+        if (osobne == false && nakladne == true && motocykel == false) {
+            inzeraty2 = inzeratDao2.vyhladaj(znackaBox.getSelectedItem().toString(), modelBox.getSelectedItem().toString(),
+                    odBox.getSelectedItem().toString(), doBox.getSelectedItem().toString());
+        }
+        if (osobne == false && nakladne == false && motocykel == true) {
+            inzeraty3 = inzeratDao3.vyhladaj(znackaBox.getSelectedItem().toString(), modelBox.getSelectedItem().toString(),
                     odBox.getSelectedItem().toString(), doBox.getSelectedItem().toString());
         }
         setVisible(false);

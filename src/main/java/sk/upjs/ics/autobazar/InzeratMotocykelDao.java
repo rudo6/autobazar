@@ -10,4 +10,6 @@ public interface InzeratMotocykelDao {
     public List<InzeratMotocykel> vyhladaj(String znacka, String model, String odRocnik, String doRocnik);
     
     public void odstranit(InzeratMotocykel inzerat);
+    
+    public List<InzeratMotocykel> dajPodlaPouzivatela(Long idP);
 }
